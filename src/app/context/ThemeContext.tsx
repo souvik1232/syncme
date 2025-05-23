@@ -15,13 +15,12 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode; }) => {
-    const [theme, setTheme] = useState<Theme>(
-        (typeof window !== 'undefined' && localStorage.getItem('theme') as Theme) || 'light'
-      );
+    const [theme, setTheme] = useState<Theme>('light'); // Safe default
 
     useEffect(() => {
-        const saved = localStorage.getItem('theme') as Theme;
-        const initial = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const saved = localStorage.getItem('theme') as Theme | null;
+        const initial =
+            saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         setTheme(initial);
         document.documentElement.classList.add(initial);
     }, []);
