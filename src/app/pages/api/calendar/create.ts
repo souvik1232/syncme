@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { google } from 'googleapis';
 import { getToken } from 'next-auth/jwt';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+// const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const token = await getToken({ req });
@@ -12,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const oauth2Client = new google.auth.OAuth2();
-    oauth2Client.setCredentials({ access_token: token.accessToken });
+    oauth2Client.setCredentials({ access_token: token.accessToken as string });
 
     const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
