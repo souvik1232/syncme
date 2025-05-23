@@ -1,0 +1,53 @@
+/* EventDialog.module.css */
+.dialogPaper {
+    border-radius: 20px !important;
+    background: linear-gradient(to bottom right, #ffffff, #f9fafc);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
+    padding: 24px;
+    min-width: 400px;
+}
+
+.dialogTitle {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.dialogContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.textField {
+    background-color: #f1f5f9;
+    border-radius: 10px;
+}
+
+.textField input {
+    padding: 12px;
+}
+
+.dialogActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+.saveButton {
+    background-color: #6366f1 !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+}
+
+.cancelButton {
+    background-color: #f3f4f6 !important;
+    color: #334155 !important;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+}

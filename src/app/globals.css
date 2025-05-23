@@ -3,19 +3,143 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F9FAFB;
+  --foreground: #111827;
+  --card: #FFFFFF;
+  --accent: #10B981;
+  --accent-hover: #059669;
+  --accent-bg: #D1FAE5;
+  --border: #E5E7EB;
+  --error: #EF4444;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --bg-color: #f8fafc;
+  --border-color: #cbd5e1;
+  --hover-color: #e2e8f0;
+  --today-highlight: #6366f1;
+  --event-bg: #06b6d4;
+  --event-text: #0f172a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card: #1E293B;
+  --accent: #34D399;
+  --accent-hover: #10B981;
+  --accent-bg: #064E3B;
+  --border: #334155;
+  --error: #F87171;
+  --success: #4ADE80;
+  --warning: #FBBF24;
+  --bg-color: #0f172a;
+  --border-color: #475569;
+  --hover-color: #334155;
+  --today-highlight: #818cf8;
+  --event-bg: #22d3ee;
+  --event-text: #f8fafc;
+}
+
+html,
+body {
+  overflow-y: scroll;
+  /* allow scrolling */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge */
 }
 
 body {
+  @apply text-foreground bg-background font-sans transition-colors duration-300;
+  background-color: var(--background);
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dark body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Calendar wrapper styling */
+.calendar-wrapper {
+  @apply rounded-2xl shadow-xl p-6 mt-6;
+  background-color: var(--card);
+  color: var(--foreground);
+}
+
+.fc {
+  background-color: var(--bg-color);
+  color: var(--event-text);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.fc .fc-daygrid-day {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  transition: background-color 0.2s ease;
+}
+
+.fc .fc-daygrid-day:hover {
+  background-color: var(--hover-color);
+  cursor: pointer;
+}
+
+.fc .fc-day-today {
+  background-color: var(--today-highlight);
+  color: white;
+  font-weight: bold;
+}
+
+.fc-event {
+  background-color: var(--event-bg) !important;
+  color: var(--event-text) !important;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-weight: 500;
+  border: none;
+}
+
+.fc-event:hover {
+  opacity: 0.9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Event list & filter buttons */
+.event-filters button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--accent);
+  transition: all 0.3s ease-in-out;
+}
+
+.event-filters button:hover {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* Optional: form inputs or tags */
+input,
+select,
+textarea {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  outline: none;
 }
