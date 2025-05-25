@@ -3,7 +3,7 @@
 
 import dynamic from 'next/dynamic';
 
-const CalendarView = dynamic(() => import('./CalendarView'), {
+const CalendarView = dynamic(() => import('./Calendar/CalendarView'), {
     ssr: false, // ⛔ Disable server-side rendering
 });
 

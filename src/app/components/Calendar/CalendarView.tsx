@@ -9,9 +9,10 @@ import listPlugin from '@fullcalendar/list';
 import { EventClickArg } from '@fullcalendar/core';
 import { useEffect, useRef, useState } from 'react';
 // import { motion } from 'framer-motion';
-import EventDialog from './EventDialog';
-import { useTheme } from '../context/ThemeContext';
-import { useGoogleAuthContext } from '../context/GoogleAuthProvider';
+import EventDialog from '../EventDialog';
+import { useTheme } from '../../context/ThemeContext';
+import { useGoogleAuthContext } from '../../context/GoogleAuthProvider';
+import { motion } from 'framer-motion';
 
 type Event = {
     title: string;
@@ -33,12 +34,46 @@ export interface CalendarViewRef {
 
 export default function CalendarView({ events, setEvents, selectedEvent, setSelectedEvent, highlightDate }: Props) {
     const calendarRef = useRef<any>(null);
+    const swipeRef = useRef<any>(null);
     const { mode } = useTheme();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [highlightedDate, setHighlightedDate] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState(false);
     const { accessToken } = useGoogleAuthContext();
+
+    useEffect(() => {
+        let startX = 0;
+        let endX = 0;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            startX = e.touches[0].clientX;
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+            endX = e.changedTouches[0].clientX;
+            const delta = endX - startX;
+
+            if (delta > 50) {
+                calendarRef.current?.getApi().prev();
+            } else if (delta < -50) {
+                calendarRef.current?.getApi().next();
+            }
+        };
+
+        const node = swipeRef.current;
+        if (node) {
+            node.addEventListener("touchstart", handleTouchStart, { passive: true });
+            node.addEventListener("touchend", handleTouchEnd, { passive: true });
+        }
+
+        return () => {
+            if (node) {
+                node.removeEventListener("touchstart", handleTouchStart);
+                node.removeEventListener("touchend", handleTouchEnd);
+            }
+        };
+    }, []);
 
     useEffect(() => {
         const handleResize = () => {
@@ -173,6 +208,7 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
                 : 'shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
         }`}>
             <h2 className="text-2xl font-semibold text-[var(--accent)] mb-4">📅 Calendar</h2>
+            <motion.div ref={swipeRef}>
             <FullCalendar
                 ref={calendarRef}
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -193,12 +229,13 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
                   }}
                 height={600}
                 headerToolbar={{
-                    left: 'prev,next today',
+                    left: isMobile?'today': 'prev,next today',
                     center: 'title',
-                    right: isMobile ? 'listWeek' : 'dayGridMonth,timeGridWeek,timeGridDay',
+                    right: isMobile ? 'dayGridMonth,listWeek' : 'dayGridMonth,timeGridWeek,timeGridDay',
                 }}
                 key={mode}
-            />
+                />
+            </motion.div>
             {dialogOpen && (
                 <EventDialog
                     open={dialogOpen}

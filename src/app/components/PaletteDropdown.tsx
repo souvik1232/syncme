@@ -11,7 +11,7 @@ export const PaletteDropdown = () => {
     const currentColors = themePalettes[palette]?.light;
 
     return (
-        <div className="relative inline-block text-left">
+        <div className="relative text-left flex justify-end">
             {/* Circular button showing current palette accent color */}
             <button
                 onClick={() => setOpen((o) => !o)}
