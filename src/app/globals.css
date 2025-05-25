@@ -138,3 +138,27 @@ textarea:focus {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
 }
+
+@media (max-width: 640px) {
+  .calendar-wrapper {
+    padding: 1rem;
+    box-shadow: none;
+  }
+
+  .fc .fc-daygrid-day-frame {
+    min-height: 48px;
+  }
+
+  .fc-toolbar-title {
+    font-size: 1rem;
+  }
+
+  .fc-button {
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  .fc-event {
+    font-size: 0.625rem !important;
+  }
+}

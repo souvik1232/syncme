@@ -23,7 +23,7 @@ export default function ToggleSwitch() {
             setAnimating(true);
 
             setTimeout(() => {
-                setMode(mode === "dark" ? "light" : "dark");
+                setMode(mode === 'dark' ? 'light' : 'dark');
                 setTimeout(() => {
                     setRipple(null);
                     setAnimating(false);
@@ -34,14 +34,15 @@ export default function ToggleSwitch() {
 
     return (
         <>
-            <div className="fixed bottom-6 right-6 z-50 flex items-center gap-4">
+            <div className="fixed bottom-4 right-4 z-50 flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-2">
+                {/* Palette Selector */}
                 <PaletteDropdown />
 
                 {/* Theme toggle button */}
                 <button
                     ref={buttonRef}
                     onClick={handleToggle}
-                    className="flex items-center bg-[var(--accent)] text-white rounded-full px-2 py-1 shadow-lg"
+                    className="flex items-center bg-[var(--accent)] text-white rounded-full px-3 py-1.5 shadow-lg w-fit"
                     aria-label="Toggle Theme"
                 >
                     <motion.div
@@ -61,10 +62,13 @@ export default function ToggleSwitch() {
                             )}
                         </motion.div>
                     </motion.div>
-                    <span className="ml-3 font-medium">{mode === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                    <span className="ml-2 sm:ml-3 text-sm sm:text-base font-medium whitespace-nowrap">
+                        {mode === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                    </span>
                 </button>
             </div>
 
+            {/* Ripple animation */}
             <AnimatePresence>
                 {ripple && (
                     <motion.div

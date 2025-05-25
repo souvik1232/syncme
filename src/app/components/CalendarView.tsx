@@ -5,6 +5,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
 import { EventClickArg } from '@fullcalendar/core';
 import { useEffect, useRef, useState } from 'react';
 // import { motion } from 'framer-motion';
@@ -36,11 +37,19 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [highlightedDate, setHighlightedDate] = useState<string | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
     const { accessToken } = useGoogleAuthContext();
 
     useEffect(() => {
-        console.log(accessToken);
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
+    useEffect(() => {
         if (!accessToken) return;
 
         const fetchEvents = async () => {
@@ -166,8 +175,8 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
             <h2 className="text-2xl font-semibold text-[var(--accent)] mb-4">📅 Calendar</h2>
             <FullCalendar
                 ref={calendarRef}
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                initialView={isMobile ? 'listWeek' : 'dayGridMonth'}
                 editable
                 selectable
                 dateClick={handleDateClick}
@@ -186,7 +195,7 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
                 headerToolbar={{
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    right: isMobile ? 'listWeek' : 'dayGridMonth,timeGridWeek,timeGridDay',
                 }}
                 key={mode}
             />
