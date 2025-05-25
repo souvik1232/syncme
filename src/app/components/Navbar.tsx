@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography, Box, IconButton } from '@mui/material';
 import { useGoogleAuthContext } from '../context/GoogleAuthProvider';
 import { motion } from 'framer-motion';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 
 export default function Navbar() {
     const { user, isSignedIn, signOut } = useGoogleAuthContext();
@@ -32,20 +33,35 @@ export default function Navbar() {
                 <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
                 >
-                    <Typography
-                        variant="h6"
-                        sx={{
-                            fontWeight: 700,
-                            letterSpacing: '0.05em',
-                            background: 'linear-gradient(to right, var(--accent), var(--btn-fg))',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            textTransform: 'uppercase',
-                        }}
+                    <motion.div
+                        initial={{ y: 0 }}
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
                     >
-                        SyncMe Calendar
-                    </Typography>
+                        <FaRegCalendarAlt size={24} color="var(--accent, #10B981)" />
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                fontWeight: 700,
+                                letterSpacing: '0.05em',
+                                background: 'linear-gradient(to right, var(--accent), var(--btn-fg))',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'var(--event-text)',
+                                textTransform: 'uppercase',
+                            }}
+                        >
+                            SyncMe
+                        </Typography>
+                    </motion.div>
                 </motion.div>
 
                 {isSignedIn && (

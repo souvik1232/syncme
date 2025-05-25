@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "./LocalisationProvider";
 import { ThemeProvider } from "./context/ThemeContext";
 import { GoogleAuthProvider } from "./context/GoogleAuthProvider";
+import { EventsProvider } from "./context/EventsContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,13 +27,15 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>
-          <Providers>
-            <GoogleAuthProvider>
-              {children}
-            </GoogleAuthProvider>
-          </Providers>
-        </ThemeProvider>
+        <EventsProvider>
+          <ThemeProvider>
+            <Providers>
+              <GoogleAuthProvider>
+                {children}
+              </GoogleAuthProvider>
+            </Providers>
+          </ThemeProvider>
+        </EventsProvider>
       </body>
     </html>
   );

@@ -26,20 +26,20 @@ type Props = {
     selectedEvent?: Event | null;
     setSelectedEvent: React.Dispatch<React.SetStateAction<Event | null>>;
     highlightDate?: Date | null;
+    isMobile: boolean;
   };
 
 export interface CalendarViewRef {
     selectEvent: (start: Date, end: Date) => void;
   }
 
-export default function CalendarView({ events, setEvents, selectedEvent, setSelectedEvent, highlightDate }: Props) {
+export default function CalendarView({ events, setEvents, selectedEvent, setSelectedEvent, highlightDate, isMobile }: Props) {
     const calendarRef = useRef<any>(null);
     const swipeRef = useRef<any>(null);
     const { mode } = useTheme();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [highlightedDate, setHighlightedDate] = useState<string | null>(null);
-    const [isMobile, setIsMobile] = useState(false);
     const { accessToken } = useGoogleAuthContext();
 
     useEffect(() => {
@@ -73,15 +73,6 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
                 node.removeEventListener("touchend", handleTouchEnd);
             }
         };
-    }, []);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     useEffect(() => {
@@ -207,7 +198,7 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
                 ? 'shadow-[0_4px_20px_rgba(255,255,255,0.1)]'
                 : 'shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
         }`}>
-            <h2 className="text-2xl font-semibold text-[var(--accent)] mb-4">📅 Calendar</h2>
+            {/* <h2 className="text-2xl font-semibold text-[var(--accent)] mb-4">📅 Calendar</h2> */}
             <motion.div ref={swipeRef}>
             <FullCalendar
                 ref={calendarRef}
