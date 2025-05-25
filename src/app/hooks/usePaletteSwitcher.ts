@@ -19,18 +19,9 @@ export const usePaletteSwitcher = () => {
     };
 
     useEffect(() => {
-        // Run only on client
         const savedPalette = localStorage.getItem('palette') as PaletteName | null;
         const initialPalette = savedPalette || 'default';
         applyPalette(initialPalette);
-
-        const observer = new MutationObserver(() => applyPalette(initialPalette));
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class'],
-        });
-
-        return () => observer.disconnect();
     }, []);
 
     return {

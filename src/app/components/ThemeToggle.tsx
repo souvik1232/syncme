@@ -7,7 +7,7 @@ import { Moon, Sun } from 'lucide-react';
 import { PaletteDropdown } from './PaletteDropdown';
 
 export default function ToggleSwitch() {
-    const { theme, toggleTheme } = useTheme();
+    const { mode, setMode } = useTheme();
     const [ripple, setRipple] = useState<{ x: number; y: number; } | null>(null);
     const [animating, setAnimating] = useState(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -23,7 +23,7 @@ export default function ToggleSwitch() {
             setAnimating(true);
 
             setTimeout(() => {
-                toggleTheme();
+                setMode(mode === "dark" ? "light" : "dark");
                 setTimeout(() => {
                     setRipple(null);
                     setAnimating(false);
@@ -46,22 +46,22 @@ export default function ToggleSwitch() {
                 >
                     <motion.div
                         className="relative w-10 h-6 rounded-full bg-white/20"
-                        animate={{ backgroundColor: theme === 'dark' ? '#4b5563' : '#d1d5db' }}
+                        animate={{ backgroundColor: mode === 'dark' ? '#4b5563' : '#d1d5db' }}
                     >
                         <motion.div
                             className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white flex items-center justify-center"
                             layout
                             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                            animate={{ x: theme === 'dark' ? 20 : 0 }}
+                            animate={{ x: mode === 'dark' ? 20 : 0 }}
                         >
-                            {theme === 'dark' ? (
+                            {mode === 'dark' ? (
                                 <Moon className="w-3 h-3 text-black" />
                             ) : (
                                 <Sun className="w-3 h-3 text-yellow-500" />
                             )}
                         </motion.div>
                     </motion.div>
-                    <span className="ml-3 font-medium">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                    <span className="ml-3 font-medium">{mode === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
                 </button>
             </div>
 

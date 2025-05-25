@@ -1,39 +1,48 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
+import { themePalettes } from '../components/themePalettes';
 
-type Theme = 'light' | 'dark';
+type Mode = "light" | "dark";
+type ThemeName = keyof typeof themePalettes;
 
 interface ThemeContextType {
-    theme: Theme;
-    toggleTheme: () => void;
+    mode: Mode;
+    setMode: (mode: Mode) => void;
+    themeName: ThemeName;
+    setThemeName: (name: ThemeName) => void;
 }
 
-const ThemeContext = createContext<ThemeContextType>({
-    theme: 'light',
-    toggleTheme: () => { },
-});
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+
+const applyTheme = (themeName: keyof typeof themePalettes, mode: "light" | "dark") => {
+    const root = document.documentElement;
+
+    const theme = themePalettes[themeName][mode];
+    Object.entries(theme).forEach(([key, value]) => {
+        root.style.setProperty(key, value);
+    });
+    localStorage.setItem('mode', mode);
+}
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode; }) => {
-    const [theme, setTheme] = useState<Theme>('light'); // Safe default
+    const [mode, setMode] = useState<Mode>("light");
+    const [themeName, setThemeName] = useState<ThemeName>("default");
 
     useEffect(() => {
-        const saved = localStorage.getItem('theme') as Theme | null;
-        const initial =
-            saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        setTheme(initial);
-        document.documentElement.classList.add(initial);
-    }, []);
+        const savedPalette = localStorage.getItem('palette') as ThemeName | null;
+        const initialPalette = savedPalette || 'default';
+        applyTheme(initialPalette, mode);
 
-    const toggleTheme = () => {
-        const next = theme === 'dark' ? 'light' : 'dark';
-        setTheme(next);
-        document.documentElement.classList.remove(theme);
-        document.documentElement.classList.add(next);
-        localStorage.setItem('theme', next);
-    };
+        if (mode === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+          }
+    }, [mode, themeName]);
 
-    return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+    return <ThemeContext.Provider value={{ mode, setMode, themeName, setThemeName }}>{children}</ThemeContext.Provider>;
 };
 
 export const useTheme = () => {

@@ -2,43 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #F9FAFB;
-  --foreground: #111827;
-  --card: #FFFFFF;
-  --accent: #10B981;
-  --accent-hover: #059669;
-  --accent-bg: #D1FAE5;
-  --border: #E5E7EB;
-  --error: #EF4444;
-  --success: #22C55E;
-  --warning: #F59E0B;
-  --bg-color: #f8fafc;
-  --border-color: #cbd5e1;
-  --hover-color: #e2e8f0;
-  --today-highlight: #6366f1;
-  --event-bg: #06b6d4;
-  --event-text: #0f172a;
+ :root {
+
 }
 
-.dark {
-  --background: #0F172A;
-  --foreground: #F8FAFC;
-  --card: #1E293B;
-  --accent: #34D399;
-  --accent-hover: #10B981;
-  --accent-bg: #064E3B;
-  --border: #334155;
-  --error: #F87171;
-  --success: #4ADE80;
-  --warning: #FBBF24;
-  --bg-color: #0f172a;
-  --border-color: #475569;
-  --hover-color: #334155;
-  --today-highlight: #818cf8;
-  --event-bg: #22d3ee;
-  --event-text: #f8fafc;
-}
 
 html,
 body {
@@ -78,8 +45,14 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
+.fc-toolbar{
+  background-color: var(--background);
+  margin-bottom: unset !important;
+  padding-bottom: 1.5em !important;
+}
+
 .fc .fc-daygrid-day {
-  border: 1px solid var(--border-color);
+  /* border: 1px solid var(--border-color); */
   background-color: var(--bg-color);
   transition: background-color 0.2s ease;
 }
@@ -93,6 +66,7 @@ body {
   background-color: var(--today-highlight);
   color: white;
   font-weight: bold;
+  border-left: 2px solid red  !important;
 }
 
 .fc-event {
@@ -142,4 +116,25 @@ select:focus,
 textarea:focus {
   border-color: var(--accent);
   outline: none;
+}
+
+.highlighted-cell {
+  animation: pulse-highlight 1.5s ease-out;
+  background-color: var(--event-bg) !important;
+  border-radius: 6px;
+  box-shadow: 0 0 0 0 var(--event-bg)
+}
+
+@keyframes pulse-highlight {
+  0% {
+    box-shadow: 0 0 0 0 var(--event-bg);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }

@@ -1,17 +1,18 @@
-
 export type ThemeMode = 'light' | 'dark';
 export type ThemeVars = {
     [key: string]: string;
-}
+};
 
 export type ThemePalettes = {
     [paletteName: string]: {
         [mode in ThemeMode]: ThemeVars;
     };
-  };
+};
 export const themePalettes = {
     default: {
         light: {
+            '--nav-bg': '#FFFFFF',
+            '--nav-fg': '#111827',
             '--background': '#F9FAFB',
             '--foreground': '#111827',
             '--card': '#FFFFFF',
@@ -30,6 +31,8 @@ export const themePalettes = {
             '--event-text': '#0f172a',
         },
         dark: {
+            '--nav-bg': '#0F172A',
+            '--nav-fg': '#F8FAFC',
             '--background': '#0F172A',
             '--foreground': '#F8FAFC',
             '--card': '#1E293B',
@@ -50,6 +53,8 @@ export const themePalettes = {
     },
     ocean: {
         light: {
+            '--nav-bg': '#FFFFFF',
+            '--nav-fg': '#004D40',
             '--background': '#E0F7FA',
             '--foreground': '#004D40',
             '--card': '#FFFFFF',
@@ -68,6 +73,8 @@ export const themePalettes = {
             '--event-text': '#004D40',
         },
         dark: {
+            '--nav-bgk': '#004D40',
+            '--nav-fg': '#E0F2F1',
             '--background': '#004D40',
             '--foreground': '#E0F2F1',
             '--card': '#00695C',
@@ -88,6 +95,8 @@ export const themePalettes = {
     },
     sunset: {
         light: {
+            '--nav-bg': '#ffffff',
+            '--nav-fg': '#7c2d12',
             "--background": "#fff7ed",
             "--foreground": "#7c2d12",
             "--card": "#ffffff",
@@ -106,6 +115,8 @@ export const themePalettes = {
             "--event-text": "#7c2d12"
         },
         dark: {
+            '--nav-bg': '#7c2d12',
+            '--nav-fg': '#fff7ed',
             "--background": "#7c2d12",
             "--foreground": "#fff7ed",
             "--card": "#9a3412",
@@ -123,7 +134,7 @@ export const themePalettes = {
             "--event-bg": "#fb923c",
             "--event-text": "#fff7ed"
         }
-    },
+      },
     grape: {
         light: {
             "--background": "#f3e8ff",
@@ -141,7 +152,9 @@ export const themePalettes = {
             "--hover-color": "#ede9fe",
             "--today-highlight": "#c084fc",
             "--event-bg": "#a78bfa",
-            "--event-text": "#4b0082"
+            "--event-text": "#4b0082",
+            "--nav-bg": "#ede9fe",
+            "--nav-fg": "#4b0082"
         },
         dark: {
             "--background": "#4b0082",
@@ -159,7 +172,9 @@ export const themePalettes = {
             "--hover-color": "#6b21a8",
             "--today-highlight": "#a855f7",
             "--event-bg": "#c084fc",
-            "--event-text": "#f3e8ff"
+            "--event-text": "#f3e8ff",
+            "--nav-bg": "#2e1065",
+            "--nav-fg": "#f3e8ff"
         }
     },
     forest: {
@@ -180,6 +195,8 @@ export const themePalettes = {
             '--today-highlight': '#4CAF50',
             '--event-bg': '#3CB371',
             '--event-text': '#2F4F2F',
+            "--nav-bg": "#C1E1C1",
+            "--nav-fg": "#2F4F2F"
         },
         dark: {
             '--background': '#2F4F2F',
@@ -198,9 +215,10 @@ export const themePalettes = {
             '--today-highlight': '#81C784',
             '--event-bg': '#4CAF50',
             '--event-text': '#E6F2E6',
-        },
+            "--nav-bg": "#254C24",
+            "--nav-fg": "#E6F2E6"
+        }
     },
-
     lavender: {
         light: {
             '--background': '#F3E8FF',
@@ -219,6 +237,8 @@ export const themePalettes = {
             '--today-highlight': '#B57EDC',
             '--event-bg': '#9161C4',
             '--event-text': '#4B0082',
+            "--nav-bg": "#E6DAF7",
+            "--nav-fg": "#4B0082"
         },
         dark: {
             '--background': '#4B0082',
@@ -237,9 +257,10 @@ export const themePalettes = {
             '--today-highlight': '#B57EDC',
             '--event-bg': '#9161C4',
             '--event-text': '#F3E8FF',
-        },
+            "--nav-bg": "#2E1065",
+            "--nav-fg": "#F3E8FF"
+        }
     },
-
     sunrise: {
         light: {
             '--background': '#FFF8E1',
@@ -258,6 +279,8 @@ export const themePalettes = {
             '--today-highlight': '#FF7043',
             '--event-bg': '#F4511E',
             '--event-text': '#5D4037',
+            "--nav-bg": "#FFE0B2",
+            "--nav-fg": "#5D4037"
         },
         dark: {
             '--background': '#5D4037',
@@ -276,7 +299,9 @@ export const themePalettes = {
             '--today-highlight': '#FF8A65',
             '--event-bg': '#FF7043',
             '--event-text': '#FFF8E1',
-        },
+            "--nav-bg": "#2F1B16",
+            "--nav-fg": "#FFF8E1"
+        }
     },
     cocoa: {
         light: {
@@ -296,6 +321,8 @@ export const themePalettes = {
             '--today-highlight': '#A9746E',
             '--event-bg': '#8B5E3C',
             '--event-text': '#4B3B2B',
+            "--nav-bg": "#EBD9C6",
+            "--nav-fg": "#4B3B2B"
         },
         dark: {
             '--background': '#4B3B2B',
@@ -314,123 +341,9 @@ export const themePalettes = {
             '--today-highlight': '#C4A484',
             '--event-bg': '#A9746E',
             '--event-text': '#F5EFE6',
-        },
-    },
+            "--nav-bg": "#3E2F1F",
+            "--nav-fg": "#F5EFE6"
+        }
+      }
 
-    teal: {
-        light: {
-            '--background': '#E0F2F1',
-            '--foreground': '#004D40',
-            '--card': '#FFFFFF',
-            '--accent': '#009688',
-            '--accent-hover': '#00796B',
-            '--accent-bg': '#B2DFDB',
-            '--border': '#80CBC4',
-            '--error': '#E57373',
-            '--success': '#81C784',
-            '--warning': '#FFD54F',
-            '--bg-color': '#E0F7FA',
-            '--border-color': '#4DB6AC',
-            '--hover-color': '#B2DFDB',
-            '--today-highlight': '#00796B',
-            '--event-bg': '#004D40',
-            '--event-text': '#E0F2F1',
-        },
-        dark: {
-            '--background': '#004D40',
-            '--foreground': '#E0F2F1',
-            '--card': '#00695C',
-            '--accent': '#4DB6AC',
-            '--accent-hover': '#009688',
-            '--accent-bg': '#00332F',
-            '--border': '#00796B',
-            '--error': '#EF9A9A',
-            '--success': '#A5D6A7',
-            '--warning': '#FFD54F',
-            '--bg-color': '#00332F',
-            '--border-color': '#004D40',
-            '--hover-color': '#00695C',
-            '--today-highlight': '#4DB6AC',
-            '--event-bg': '#009688',
-            '--event-text': '#E0F2F1',
-        },
-    },
-
-    ember: {
-        light: {
-            '--background': '#FFF3F0',
-            '--foreground': '#7B241C',
-            '--card': '#FFFFFF',
-            '--accent': '#E74C3C',
-            '--accent-hover': '#C0392B',
-            '--accent-bg': '#FADBD8',
-            '--border': '#F5B7B1',
-            '--error': '#E57373',
-            '--success': '#81C784',
-            '--warning': '#FFD54F',
-            '--bg-color': '#FFF0EB',
-            '--border-color': '#E74C3C',
-            '--hover-color': '#FADBD8',
-            '--today-highlight': '#C0392B',
-            '--event-bg': '#E74C3C',
-            '--event-text': '#7B241C',
-        },
-        dark: {
-            '--background': '#7B241C',
-            '--foreground': '#FFF3F0',
-            '--card': '#641E16',
-            '--accent': '#EC7063',
-            '--accent-hover': '#E74C3C',
-            '--accent-bg': '#4A1A14',
-            '--border': '#922B21',
-            '--error': '#EF9A9A',
-            '--success': '#A5D6A7',
-            '--warning': '#FFD54F',
-            '--bg-color': '#4A1A14',
-            '--border-color': '#641E16',
-            '--hover-color': '#922B21',
-            '--today-highlight': '#EC7063',
-            '--event-bg': '#E74C3C',
-            '--event-text': '#FFF3F0',
-        },
-    },
-
-    plum: {
-        light: {
-            '--background': '#F8F0FC',
-            '--foreground': '#4B0082',
-            '--card': '#FFFFFF',
-            '--accent': '#9B59B6',
-            '--accent-hover': '#8E44AD',
-            '--accent-bg': '#E9D7F5',
-            '--border': '#D7BDE2',
-            '--error': '#E57373',
-            '--success': '#81C784',
-            '--warning': '#FFD54F',
-            '--bg-color': '#F4E8F9',
-            '--border-color': '#B795C9',
-            '--hover-color': '#E9D7F5',
-            '--today-highlight': '#8E44AD',
-            '--event-bg': '#9B59B6',
-            '--event-text': '#4B0082',
-        },
-        dark: {
-            '--background': '#4B0082',
-            '--foreground': '#F8F0FC',
-            '--card': '#5B297D',
-            '--accent': '#B399D4',
-            '--accent-hover': '#9B59B6',
-            '--accent-bg': '#2F1D4D',
-            '--border': '#6A4C8B',
-            '--error': '#EF9A9A',
-            '--success': '#A5D6A7',
-            '--warning': '#FFD54F',
-            '--bg-color': '#2F1D4D',
-            '--border-color': '#5B297D',
-            '--hover-color': '#6A4C8B',
-            '--today-highlight': '#B399D4',
-            '--event-bg': '#9B59B6',
-            '--event-text': '#F8F0FC',
-        },
-      },
 };

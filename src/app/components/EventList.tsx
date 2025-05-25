@@ -11,11 +11,12 @@ import ViewModuleIcon from '@mui/icons-material/ViewModule';
 type Props = {
     events: EventInput[];
     itemsPerPage?: number;
+    onEventClick?: (event: EventInput) => void;
 };
 
-export default function EventList({ events, itemsPerPage = 5 }: Props) {
+export default function EventList({ events, itemsPerPage = 5,onEventClick }: Props) {
     const [search, setSearch] = useState('');
-    const [groupByDate, setGroupByDate] = useState(true);
+    const [groupByDate, setGroupByDate] = useState(false);
     const [page, setPage] = useState(1);
 
     const filteredEvents = useMemo(() => {
@@ -143,6 +144,7 @@ export default function EventList({ events, itemsPerPage = 5 }: Props) {
                         <motion.li
                             key={idx}
                             whileHover={{ scale: 1.02 }}
+                            onClick={() => onEventClick?.(event)}
                             className="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)] shadow-md"
                         >
                             <h4 className="font-medium text-lg text-[var(--accent)]">

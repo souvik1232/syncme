@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
     Button,
@@ -37,6 +37,16 @@ export default function EventDialog({
     const [title, setTitle] = useState('');
     const [start, setStart] = useState<Date | null>(new Date());
     const [end, setEnd] = useState<Date | null>(new Date());
+    const titleInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (open && titleInputRef.current) {
+            // Wait for DOM to mount
+            setTimeout(() => {
+                titleInputRef.current?.focus();
+            }, 50);
+        }
+    }, [open]);
 
     useEffect(() => {
         if (initialData) {
@@ -136,6 +146,7 @@ export default function EventDialog({
                     </DialogTitle>
                     <DialogContent className="flex flex-col gap-4 px-6 py-2">
                         <TextField
+                            inputRef={titleInputRef}
                             fullWidth
                             label="Title"
                             value={title}
