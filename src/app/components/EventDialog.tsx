@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, RefObject } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
     Button,
@@ -24,6 +24,7 @@ type Props = {
     onDelete?: () => void;
     initialData?: Event | null;
     date?: Date | null;
+    dialogRef: RefObject<HTMLInputElement>;
 };
 
 export default function EventDialog({
@@ -32,7 +33,8 @@ export default function EventDialog({
     onSave,
     onDelete,
     initialData,
-    date
+    date,
+    dialogRef
 }: Props) {
     const [title, setTitle] = useState('');
     const [start, setStart] = useState<Date | null>(new Date());
@@ -133,7 +135,7 @@ export default function EventDialog({
 
     return (
         <AnimatePresence>
-            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+            <div ref={dialogRef} className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}

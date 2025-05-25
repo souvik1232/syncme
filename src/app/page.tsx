@@ -27,8 +27,6 @@ export default function Home() {
   const { isSignedIn, user, gsiReady } = useGoogleAuthContext();
   const { events, setEvents } = useEventsContext();
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  console.log(isSignedIn);
-
 
   if (!gsiReady) return <div>Loading Google Sign-In...</div>;
   if (!isSignedIn || !user) return <SignInPage />;

@@ -13,6 +13,7 @@ import EventDialog from '../EventDialog';
 import { useTheme } from '../../context/ThemeContext';
 import { useGoogleAuthContext } from '../../context/GoogleAuthProvider';
 import { motion } from 'framer-motion';
+import { useKeyPressHandler } from '@/app/hooks/useKeyPressHandler';
 
 type Event = {
     title: string;
@@ -36,6 +37,7 @@ export interface CalendarViewRef {
 export default function CalendarView({ events, setEvents, selectedEvent, setSelectedEvent, highlightDate, isMobile }: Props) {
     const calendarRef = useRef<any>(null);
     const swipeRef = useRef<any>(null);
+    const eventModalRef = useRef<any>(null);
     const { mode } = useTheme();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -193,6 +195,14 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
         }, 60)
     }, [highlightDate]);
 
+    useKeyPressHandler({
+        targetKeys: ['Escape'],
+        callback: () => setDialogOpen(false),
+        active: dialogOpen,
+        ref: eventModalRef,
+        onClickOutside: () => setDialogOpen(false),
+      });
+
     return (
         <div className={`bg-[var(--card-bg)] text-[var(--foreground)] p-6 rounded-2xl border border-[var(--card-border)] ${mode === 'dark'
                 ? 'shadow-[0_4px_20px_rgba(255,255,255,0.1)]'
@@ -229,6 +239,7 @@ export default function CalendarView({ events, setEvents, selectedEvent, setSele
             </motion.div>
             {dialogOpen && (
                 <EventDialog
+                    dialogRef={eventModalRef}
                     open={dialogOpen}
                     date={selectedDate}
                     initialData={selectedEvent}
